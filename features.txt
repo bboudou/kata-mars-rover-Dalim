@@ -40,3 +40,7 @@ Given : A rover is at (3,1) and face east, the size of the planet is [-2,2],[-2,
 When : The rover going forward
 Then : the rover is at (-2,1) facing east
 
+Feature : Encounter an obstacle
+Given : A rover is at (1,1) and face east
+When : The rover going forward and encounter an obstacle
+Then : the rover is at (1,1) facing east and reports the obstacle.
