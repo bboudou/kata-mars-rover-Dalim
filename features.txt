@@ -1,6 +1,6 @@
 Feature : Initialization
 Given : A rover just arrived to Mars
-When : The rover initialize at (1,-1)
+When : The rover initialize at (0,0)
 Then : It faces north
 	
 Feature : Going north
