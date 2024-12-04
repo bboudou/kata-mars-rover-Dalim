@@ -50,4 +50,45 @@ public class RoverTest {
         assert roverTest.getCoord().getX() == 0;
         assert roverTest.getCoord().getY() == 0;
     }
+
+    @Test
+    public void PassNorthenHemisphereAt0(){
+
+        Rover roverTest = new Rover(0,2,Cardinals.NORTH);
+        roverTest.move('F');
+        assert roverTest.getFacing() == Cardinals.SOUTH;
+        assert roverTest.getCoord().getX() == 3;
+        assert roverTest.getCoord().getY() == 2;
+    }
+
+    @Test
+    public void PassSouthernHemisphere(){
+
+        Rover roverTest = new Rover(2,-2,Cardinals.SOUTH);
+        roverTest.move('F');
+        assert roverTest.getFacing() == Cardinals.NORTH;
+        assert roverTest.getCoord().getX() == -1;
+        assert roverTest.getCoord().getY() == -2;
+    }
+
+    @Test
+    public void PassLimitinEast(){
+
+        Rover roverTest = new Rover(3,-2,Cardinals.EAST);
+        roverTest.move('F');
+        assert roverTest.getFacing() == Cardinals.EAST;
+        assert roverTest.getCoord().getX() == -2;
+        assert roverTest.getCoord().getY() == -2;
+    }
+
+    @Test
+    public void PassLimitinWest(){
+
+        Rover roverTest = new Rover(-2,0,Cardinals.WEST);
+        roverTest.move('F');
+        assert roverTest.getFacing() == Cardinals.WEST;
+        assert roverTest.getCoord().getX() == 3;
+        assert roverTest.getCoord().getY() == 0;
+    }
+    public void MeetObstacle(){}
 }

@@ -8,6 +8,7 @@ import static org.example.Cardinals.*;
 public class Rover {
     private Coordinates coord;
     private Cardinals facing;
+    private Planet planet;
 
     private Coordinates lastCoord;
     private final List<Character> listOfDirections = new ArrayList<>(); // commands
@@ -16,11 +17,13 @@ public class Rover {
         coord = new Coordinates();
         lastCoord = coord;
         facing = NORTH;
+        planet=new Planet(-2,3,-2,2);
     }
 
     public Rover(int x, int y, Cardinals card){
         coord = new Coordinates(x,y);
         facing = card;
+        planet=new Planet(-2,3,-2,2);
     }
 
     public void move(char direction){
