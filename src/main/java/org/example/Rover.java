@@ -1,13 +1,20 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.example.Cardinals.*;
 
 public class Rover {
     private Coordinates coord;
     private Cardinals facing;
 
+    private Coordinates lastCoord;
+    private final List<Character> listOfDirections = new ArrayList<>(); // commands
+
     public Rover(){
         coord = new Coordinates();
+        lastCoord = coord;
         facing = NORTH;
     }
 
@@ -17,11 +24,12 @@ public class Rover {
     }
 
     public void move(char direction){
-        switch (this.facing) {
+
+        listOfDirections.add(direction);
+
+        switch (facing) {
             case Cardinals.NORTH:
                 moveNorth(direction);
-                break;
-
             case EAST:
                 moveEast(direction);
                 break;
@@ -34,8 +42,12 @@ public class Rover {
                 moveWest(direction);
                 break;
         }
+        if (planet.inObstacle(coord)){
+            faceObstacle();
+        }
 
-
+        lastCoord = new Coordinates(coord.getX(), coord.getY());
+        planet.OutsideBorder(this);
     }
 
     private void moveNorth(char direction) {
@@ -103,8 +115,6 @@ public class Rover {
         }
     }
 
-
-
     public Coordinates getCoord() {
         return coord;
     }
@@ -119,5 +129,11 @@ public class Rover {
 
     public void setFacing(Cardinals facing) {
         this.facing = facing;
+    }
+
+    public void faceObstacle(){
+        System.out.println("Obstacle found at: "+ coord.getX()+","+coord.getY());
+        this.coord.setX(lastCoord.getX());
+        this.coord.setY(lastCoord.getY());
     }
 }
