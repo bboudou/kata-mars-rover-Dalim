@@ -1,54 +1,44 @@
 package org.example;
 
 import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RoverTest {
 
     @Test
     public void initialization(){
         Rover roverTest = new Rover();
-
-        assert roverTest.getFacing() == Cardinals.NORTH;
-        assert roverTest.getCoord().getX() == 0;
-        assert roverTest.getCoord().getY() == 0;
+        assertEquals(Cardinals.NORTH, roverTest.getFacing());
+        assertEquals(0, roverTest.getCoord().getX());
+        assertEquals(0, roverTest.getCoord().getY());
     }
 
     @Test
     public void GoingNorth(){
         Rover roverTest = new Rover(0,0,Cardinals.NORTH);
-
         roverTest.move('F');
-        assert roverTest.getFacing() == Cardinals.NORTH;
-        assert roverTest.getCoord().getX() == 0;
-        assert roverTest.getCoord().getY() == 1;
+        testPosition(Cardinals.NORTH,0,1,roverTest);
     }
 
     @Test
     public void GoingSouth(){
         Rover roverTest = new Rover(0,0,Cardinals.NORTH);
-
         roverTest.move('B');
-        assert roverTest.getFacing() == Cardinals.NORTH;
-        assert roverTest.getCoord().getX() == 0;
-        assert roverTest.getCoord().getY() == -1;
+        testPosition(Cardinals.NORTH,0,-1,roverTest);
     }
 
     @Test
     public void TurnRight(){
         Rover roverTest = new Rover(0,0,Cardinals.NORTH);
         roverTest.turn('R');
-        assert roverTest.getFacing() == Cardinals.EAST;
-        assert roverTest.getCoord().getX() == 0;
-        assert roverTest.getCoord().getY() == 0;
+        testPosition(Cardinals.EAST,0,0,roverTest);
     }
 
     @Test
     public void TurnLeft(){
         Rover roverTest = new Rover(0,0,Cardinals.NORTH);
         roverTest.turn('L');
-        assert roverTest.getFacing() == Cardinals.WEST;
-        assert roverTest.getCoord().getX() == 0;
-        assert roverTest.getCoord().getY() == 0;
+        testPosition(Cardinals.WEST,0,0,roverTest);
     }
 
     @Test
@@ -56,9 +46,7 @@ public class RoverTest {
 
         Rover roverTest = new Rover(0,2,Cardinals.NORTH);
         roverTest.move('F');
-        assert roverTest.getFacing() == Cardinals.SOUTH;
-        assert roverTest.getCoord().getX() == 3;
-        assert roverTest.getCoord().getY() == 2;
+        testPosition(Cardinals.SOUTH,3,2,roverTest);
     }
 
     @Test
@@ -66,9 +54,7 @@ public class RoverTest {
 
         Rover roverTest = new Rover(2,-2,Cardinals.SOUTH);
         roverTest.move('F');
-        assert roverTest.getFacing() == Cardinals.NORTH;
-        assert roverTest.getCoord().getX() == -1;
-        assert roverTest.getCoord().getY() == -2;
+        testPosition(Cardinals.NORTH,-1,2,roverTest);
     }
 
     @Test
@@ -76,9 +62,7 @@ public class RoverTest {
 
         Rover roverTest = new Rover(3,-2,Cardinals.EAST);
         roverTest.move('F');
-        assert roverTest.getFacing() == Cardinals.EAST;
-        assert roverTest.getCoord().getX() == -2;
-        assert roverTest.getCoord().getY() == -2;
+        testPosition(Cardinals.EAST,-2,-2, roverTest);
     }
 
     @Test
@@ -86,9 +70,19 @@ public class RoverTest {
 
         Rover roverTest = new Rover(-2,0,Cardinals.WEST);
         roverTest.move('F');
-        assert roverTest.getFacing() == Cardinals.WEST;
-        assert roverTest.getCoord().getX() == 3;
-        assert roverTest.getCoord().getY() == 0;
+        testPosition(Cardinals.WEST,3,0,roverTest);
     }
-    public void MeetObstacle(){}
+    @Test
+    public void MeetObstacle(){
+        Rover roverTest = new Rover(1,0,Cardinals.NORTH);
+        roverTest.move('F');
+        testPosition(Cardinals.NORTH,1,0,roverTest);
+    }
+
+
+    public void testPosition(Cardinals facing, int posx, int posy, Rover roverTest){
+        assertEquals(facing, roverTest.getFacing());
+        assertEquals(posx, roverTest.getCoord().getX());
+        assertEquals(posy, roverTest.getCoord().getY());
+    }
 }

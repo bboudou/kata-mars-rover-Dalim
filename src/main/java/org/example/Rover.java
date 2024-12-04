@@ -9,13 +9,10 @@ public class Rover {
     private Coordinates coord;
     private Cardinals facing;
     private Planet planet;
-
-    private Coordinates lastCoord;
     private final List<Character> listOfDirections = new ArrayList<>(); // commands
 
     public Rover(){
         coord = new Coordinates();
-        lastCoord = coord;
         facing = NORTH;
         planet=new Planet(-2,3,-2,2);
     }
@@ -28,11 +25,12 @@ public class Rover {
 
     public void move(char direction){
 
-        listOfDirections.add(direction);
+        Coordinates lastCoord = new Coordinates(coord.getX(),coord.getY());
 
         switch (facing) {
             case Cardinals.NORTH:
                 moveNorth(direction);
+                break;
             case EAST:
                 moveEast(direction);
                 break;
@@ -46,10 +44,10 @@ public class Rover {
                 break;
         }
         if (planet.inObstacle(coord)){
-            faceObstacle();
+            faceObstacle(lastCoord);
         }
 
-        lastCoord = new Coordinates(coord.getX(), coord.getY());
+
         planet.OutsideBorder(this);
     }
 
@@ -134,9 +132,8 @@ public class Rover {
         this.facing = facing;
     }
 
-    public void faceObstacle(){
+    public void faceObstacle(Coordinates lastCoord){
         System.out.println("Obstacle found at: "+ coord.getX()+","+coord.getY());
-        this.coord.setX(lastCoord.getX());
-        this.coord.setY(lastCoord.getY());
+        coord=lastCoord;
     }
 }

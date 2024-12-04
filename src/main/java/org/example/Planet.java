@@ -18,7 +18,10 @@ public class Planet {
     }
 
     public boolean inObstacle(Coordinates coord){
-        return listOfObstacles.contains(coord);
+        for (Coordinates coordinate : listOfObstacles) {
+            if (coordinate.equals(coord)) return true;
+        }
+        return false;
     }
 
     public  Rover OutsideBorder(Rover rover){
@@ -37,7 +40,7 @@ public class Planet {
             rover.setFacing(Cardinals.NORTH);
         }
 
-        if(rover.getCoord().getY()<limitYmax){
+        if(rover.getCoord().getY()>limitYmax){
             rover.getCoord().setY(limitYmax);
             if(rover.getCoord().getX()<=0)
                 rover.getCoord().setX(rover.getCoord().getX()+3);
