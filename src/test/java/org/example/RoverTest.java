@@ -54,7 +54,7 @@ public class RoverTest {
 
         Rover roverTest = new Rover(2,-2,Cardinals.SOUTH);
         roverTest.move('F');
-        testPosition(Cardinals.NORTH,-1,2,roverTest);
+        testPosition(Cardinals.NORTH,-1,-2,roverTest);
     }
 
     @Test
