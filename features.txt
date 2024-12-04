@@ -35,7 +35,7 @@ When : The rover going forward
 Then : the rover is at (3,2) facing south
 
 
-Feature : Pass north hemisphere
+Feature : Pass the size limit at the axe west/east
 Given : A rover is at (3,1) and face east, the size of the planet is [-2,2],[-2,3]
 When : The rover going forward
 Then : the rover is at (-2,1) facing east
