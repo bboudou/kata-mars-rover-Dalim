@@ -25,17 +25,17 @@ Then : A rover is at (0,0) and face west
 
 
 Feature : Pass northen hemisphere
-Given : A rover is at (2,2) and face north, the size of the planet is [-2,2],[-2,3]
+Given : A rover is at (2,2) and face north, the limit of the planet is [-2,2],[-2,3]
 When : The rover going forward
 Then : the rover is at (-1,2) facing south
 
 Feature : Pass northen hemisphere at 0
-Given : A rover is at (0,2) and face north, the size of the planet is [-2,2],[-2,3]
+Given : A rover is at (0,2) and face north, the limit of the planet is [-2,2],[-2,3]
 When : The rover going forward
 Then : the rover is at (3,2) facing south
 
 
-Feature : Pass the size limit at the axe west/east
+Feature : Pass the limit size at the axe west/east
 Given : A rover is at (3,1) and face east, the size of the planet is [-2,2],[-2,3]
 When : The rover going forward
 Then : the rover is at (-2,1) facing east
