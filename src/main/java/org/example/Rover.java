@@ -8,7 +8,7 @@ import static org.example.Cardinals.*;
 public class Rover {
     private Coordinates coord;
     private Cardinals facing;
-    private Planet planet;
+    private final Planet planet;
     private final List<Character> listOfDirections = new ArrayList<>(); // commands
 
     public Rover(){
@@ -29,18 +29,18 @@ public class Rover {
 
         switch (facing) {
             case Cardinals.NORTH:
-                moveNorth(direction);
+                coord.setY(moveFunction(direction,coord.getY(),1));
                 break;
             case EAST:
-                moveEast(direction);
+                coord.setX(moveFunction(direction,coord.getX(),1));
                 break;
 
             case SOUTH:
-                moveSouth(direction);
+                coord.setY(moveFunction(direction,coord.getY(),-1));
                 break;
 
             case WEST:
-                moveWest(direction);
+                coord.setX(moveFunction(direction,coord.getX(),-1));
                 break;
         }
         if (planet.inObstacle(coord)){
@@ -51,68 +51,20 @@ public class Rover {
         planet.OutsideBorder(this);
     }
 
-    private void moveNorth(char direction) {
+    private int moveFunction(char direction,int x,int mul) {
         if(direction == 'F'){
-            coord.setY(coord.getY()+1);
+            x+=mul;
         }else if(direction == 'B'){
-            coord.setY(coord.getY()-1);
+            x-=mul;
         }
-    }
-    private void moveEast(char direction) {
-        if(direction == 'F'){
-            coord.setX(coord.getX()+1);
-        }else if(direction == 'B'){
-            coord.setX(coord.getX()-1);
-        }
-    }
-    private void moveSouth(char direction) {
-        if(direction == 'F'){
-            coord.setY(coord.getY()-1);
-        }else if(direction == 'B'){
-            coord.setY(coord.getY()+1);
-        }
-    }
-    private void moveWest(char direction) {
-        if(direction == 'F'){
-            coord.setX(coord.getX()-1);
-        }else if(direction == 'B'){
-            coord.setX(coord.getX()+1);
-        }
+        return x;
     }
 
     public void turn(char direction){
-        switch (this.facing) {
-            case Cardinals.NORTH:
-                if (direction=='R')
-                    facing=EAST;
-                else if (direction == 'L') {
-                    facing=WEST;
-                }
-                break;
-
-            case EAST:
-                if (direction=='R')
-                    facing=SOUTH;
-                else if (direction == 'L') {
-                    facing=NORTH;
-                }
-                break;
-
-            case SOUTH:
-                if (direction=='R')
-                    facing=WEST;
-                else if (direction == 'L') {
-                    facing=EAST;
-                }
-                break;
-
-            case WEST:
-                if (direction=='R')
-                    facing=NORTH;
-                else if (direction == 'L') {
-                    facing=SOUTH;
-                }
-                break;
+        if (direction=='R')
+            facing=Cardinals.byOrdinal((facing.CardOrdinal+1)%4);
+        else if (direction == 'L') {
+            facing=Cardinals.byOrdinal(facing.CardOrdinal-1);
         }
     }
 
